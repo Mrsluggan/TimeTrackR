@@ -29,11 +29,9 @@ export default function CreateTask({ setData }) {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="taskName">Task name</label>
+        <form id='taskSubmit' onSubmit={handleSubmit}>
+                <label htmlFor="taskName">Task name: </label>
                 <input type="text" id="taskName" name='taskName' onChange={event => setTaskName(event.target.value)} />
-            </div>
             <button type='submit'> submit </button>
         </form>
     )

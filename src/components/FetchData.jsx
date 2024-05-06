@@ -33,10 +33,10 @@ export default function FetchData() {
 
     const printData = () => {
         return data.map(item =>
-            <li key={item.id} >
-                {item.taskName}
-                <p>{item.isActive}</p>
-                <p>{item.totalTime} Timmar </p>
+            <li id='taskList' key={item.id} >
+                <h3>{item.taskName}</h3>
+                {item.isActive}
+                {item.totalTime} Timmar
                 {item.isActive === true ?
                     <div>Aktiv</div>
                     :
