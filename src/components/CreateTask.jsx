@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 
-export default function CreateTask() {
+export default function CreateTask({ setData }) {
 
-    const [data, setdata] = useState("")
+    const [taskName, setTaskName] = useState("")
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(data);
+        console.log(taskName);
         fetch('http://localhost:8080/tasks/newtask', {
             method: 'POST',
             headers: {
@@ -15,18 +15,24 @@ export default function CreateTask() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "taskName": data
+                "taskName": taskName
             })
+
         })
+            .then(response => response.json())
+            .then(data => setData(prevTodos => [...prevTodos, data])
+            )
+        setTaskName("")
+        event.target.reset();
 
     }
 
 
     return (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' , margin: '50px'}}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="taskName">Task name</label>
-                <input type="text" id="taskName" name='taskName' onChange={event => setdata(event.target.value)} />
+                <input type="text" id="taskName" name='taskName' onChange={event => setTaskName(event.target.value)} />
             </div>
             <button type='submit'> submit </button>
         </form>

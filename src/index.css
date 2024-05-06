@@ -13,6 +13,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+body {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  
+}
+
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -23,11 +34,7 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+
 }
 
 h1 {

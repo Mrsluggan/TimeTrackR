@@ -5,9 +5,10 @@ import CreateTask from './components/CreateTask'
 
 function App() {
 
+
+
   return (
     <>
-      <CreateTask />
       <FetchData />
     </>
   )
