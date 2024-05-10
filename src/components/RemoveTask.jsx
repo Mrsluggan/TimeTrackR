@@ -6,10 +6,6 @@ export default function RemoveTask({ task, setData, data }) {
         fetch(`http://localhost:8080/tasks/remove/${task.id}`, {
             method: 'Delete',
         })
-
-
-
-
         const arr = data.filter((item) => item.id !== task.id);
         setData(arr)
 
