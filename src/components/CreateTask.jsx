@@ -8,11 +8,13 @@ export default function CreateTask({ setData }) {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(taskName);
-        fetch('http://localhost:8080/tasks/newtask', {
+        fetch('http://localhost:8080/task/add', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+
             },
             body: JSON.stringify({
                 "taskName": taskName
@@ -30,8 +32,8 @@ export default function CreateTask({ setData }) {
 
     return (
         <form id='taskSubmit' onSubmit={handleSubmit}>
-                <label htmlFor="taskName">Task name: </label>
-                <input type="text" id="taskName" name='taskName' onChange={event => setTaskName(event.target.value)} />
+            <label htmlFor="taskName">Task name: </label>
+            <input type="text" id="taskName" name='taskName' required minLength={3} onChange={event => setTaskName(event.target.value)} />
             <button type='submit'> submit </button>
         </form>
     )

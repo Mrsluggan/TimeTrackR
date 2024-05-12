@@ -2,54 +2,69 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import CreateTask from './CreateTask'
 import RemoveTask from './RemoveTask'
-export default function FetchData() {
+export default function FetchData({ setIsLoggedIn, isLoggedIn }) {
 
     const [data, setData] = useState([])
 
-
-    const getData = () => {
-        fetch('http://localhost:8080/tasks/gettasks')
+    const getData = async () => {
+        fetch('http://localhost:8080/task/getTasks', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
             .then(response => response.json())
-            .then(data => setData(data))
+            .then(data => {
+                console.log(data);
+                setData(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
     }
 
     useEffect(() => {
-        getData()
-    }, [])
 
+        if (isLoggedIn) {
+            getData();
+        }
+    }, [isLoggedIn]);
 
     const handleIsActive = (task) => {
-        console.log(data);
 
-        console.log(task.isActive);
-        fetch(`http://localhost:8080/tasks/${task.isActive ? 'stop' : 'start'}/${task.id}`, {
+        fetch(`http://localhost:8080/task/${task.isActive ? 'stop' : 'start'}?id=${task.id}`, {
             method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify({ id: task.id }),
+
         })
             .then(() => {
+
                 getData();
             });
     };
 
 
     const printData = () => {
-        return data.map(item =>
-            <li id='taskList' key={item.id} >
-                <h3>{item.taskName}</h3>
-                {item.isActive}
-                {item.totalTime} Timmar
-                {item.isActive === true ?
-                    <div>Aktiv</div>
-                    :
-                    <div>Inaktiv</div>
+        if (!Array.isArray(data)) {
+            return null; // eller hantera annorlunda om det inte är en array
+        }
 
-                }
-                {
-                    item.isActive === true ?
-                        <button onClick={() => handleIsActive(item)}> Stop </button>
+        return data.map(item =>
+            <li id='taskList' key={item.id} style={{ listStyle: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <h3>{item.taskName}</h3>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <p>{item.isActive} </p>
+                    <p>{item.totalTime} Timmar </p>
+
+                    {item.isActive === true ?
+                        <button onClick={() => { handleIsActive(item) }}> Stop </button>
                         :
                         <button onClick={() => handleIsActive(item)}> Start </button>
-                }
-                <RemoveTask task={item} setData={setData} data={data} />
+                    }
+                    <RemoveTask task={item} setData={setData} data={data} />
+                </div>
             </li>
         )
     }
@@ -60,7 +75,7 @@ export default function FetchData() {
         <div>
             <CreateTask setData={setData} />
             <div>
-                {printData()}
+                {isLoggedIn && printData()}
             </div>
 
 
