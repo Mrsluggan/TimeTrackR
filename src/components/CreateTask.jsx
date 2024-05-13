@@ -8,7 +8,7 @@ export default function CreateTask({ setData }) {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(taskName);
-        fetch('http://localhost:8080/task/add', {
+        fetch('https://walrus-app-fc7zi.ondigitalocean.app/task/add', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -33,7 +33,7 @@ export default function CreateTask({ setData }) {
     return (
         <form id='taskSubmit' onSubmit={handleSubmit}>
             <label htmlFor="taskName">Task name: </label>
-            <input type="text" id="taskName" name='taskName' required minLength={3} onChange={event => setTaskName(event.target.value)} />
+            <input type="text" id="taskName" name='taskName' required minLength={5} onChange={event => setTaskName(event.target.value)} />
             <button type='submit'> submit </button>
         </form>
     )

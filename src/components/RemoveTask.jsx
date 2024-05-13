@@ -3,7 +3,7 @@ import React from 'react';
 export default function RemoveTask({ task, setData, data }) {
 
     const handleClick = () => {
-        fetch(`http://localhost:8080/task/remove?id=${task.id}`, {
+        fetch(`https://walrus-app-fc7zi.ondigitalocean.app/task/remove?id=${task.id}`, {
             method: 'Delete',
             credentials: 'include',
             body: JSON.stringify({ id: task.id }),

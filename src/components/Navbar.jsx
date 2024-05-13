@@ -1,18 +1,19 @@
 import React from 'react'
-
-export default function Navbar({ isLoggedIn }) {
+import CreateAccount from './CreateAccount'
+export default function Navbar({ isLoggedIn, isAdmin }) {
     return (
 
         <nav id='navBar' >
 
+            <div>TimeTrackR</div>
             {
                 isLoggedIn === false ?
                     <div style={{ display: 'flex' }}>
-                        <li> <a href="http://localhost:8080/login">Logga in</a></li>
-                        <li> <a href="http://localhost:8080/login">Skapa konto</a></li>
+                        <li> <a href="https://walrus-app-fc7zi.ondigitalocean.app/login">Logga in</a></li>
+                        <CreateAccount />
                     </div>
                     :
-                    <li> <a href="http://localhost:8080/logout">Logga ut</a></li>
+                    <li> <a href="https://walrus-app-fc7zi.ondigitalocean.app/logout">Logga ut</a></li>
             }
         </nav>
 

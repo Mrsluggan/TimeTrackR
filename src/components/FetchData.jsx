@@ -7,7 +7,7 @@ export default function FetchData({ setIsLoggedIn, isLoggedIn }) {
     const [data, setData] = useState([])
 
     const getData = async () => {
-        fetch('http://localhost:8080/task/getTasks', {
+        fetch('https://walrus-app-fc7zi.ondigitalocean.app/task/getTasks', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -33,7 +33,7 @@ export default function FetchData({ setIsLoggedIn, isLoggedIn }) {
 
     const handleIsActive = (task) => {
 
-        fetch(`http://localhost:8080/task/${task.isActive ? 'stop' : 'start'}?id=${task.id}`, {
+        fetch(`https://walrus-app-fc7zi.ondigitalocean.app/${task.isActive ? 'stop' : 'start'}?id=${task.id}`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify({ id: task.id }),
@@ -45,19 +45,20 @@ export default function FetchData({ setIsLoggedIn, isLoggedIn }) {
             });
     };
 
-
     const printData = () => {
         if (!Array.isArray(data)) {
-            return null; // eller hantera annorlunda om det inte är en array
+            return <p>Error fetching data...</p>;
+        }
+        if (data.length === 0) {
+            return <p>Loading...</p>;
         }
 
-        return data.map(item =>
-            <li id='taskList' key={item.id} style={{ listStyle: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        return data.map(item => (
+            <li key={item.id} style={{ listStyle: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <h3>{item.taskName}</h3>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <p>{item.isActive} </p>
+                    <p>{item.isActive.toString()} </p>
                     <p>{item.totalTime} Timmar </p>
-
                     {item.isActive === true ?
                         <button onClick={() => { handleIsActive(item) }}> Stop </button>
                         :
@@ -66,8 +67,8 @@ export default function FetchData({ setIsLoggedIn, isLoggedIn }) {
                     <RemoveTask task={item} setData={setData} data={data} />
                 </div>
             </li>
-        )
-    }
+        ));
+    };
 
 
 

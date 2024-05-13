@@ -2,26 +2,34 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import FetchData from './components/FetchData'
 import Navbar from './components/Navbar'
+import AdminPage from './components/AdminPage'
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const CheckIfAuthenticated = async () => {
+    const requestHeaders = {
+      'Content-Type': 'application/json',
+    };
 
+    console.log('Request Headers:', requestHeaders);
 
-    fetch('http://localhost:8080/check', {
+    fetch('https://walrus-app-fc7zi.ondigitalocean.app/check', {
       method: 'GET',
       credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      }
+      headers: requestHeaders
     })
       .then(response => response.json())
       .then(data => {
+        console.log('Response from server:', data);
         if (data.authenticated === true) {
           setCurrentUser(data.username);
+          if (data.isAdmin === true) {
+            setIsAdmin(true);
+          }
           setIsLoggedIn(true);
         }
       })
@@ -31,14 +39,11 @@ function App() {
   }
 
   useEffect(() => {
-
-    if (isLoggedIn === false) {
+    if (!isLoggedIn) {
       CheckIfAuthenticated();
-
     }
+  }, [isLoggedIn]); // Kör bara när isLoggedIn ändras
 
-
-  }, []);
 
   return (
     <>
@@ -49,7 +54,7 @@ function App() {
           :
           <h1>Välkommen tillbaka {currentUser}!</h1>
       }
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
       <header></header>
       {
         isLoggedIn === false ?
@@ -57,7 +62,10 @@ function App() {
             <h2>Logga in för upptäcka hur mycket tid du slösar i livet</h2>
           </div>
           :
-          <FetchData isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} />
+          isAdmin === true ?
+            <AdminPage />
+            :
+            <FetchData isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} />
       }
     </>
   )
