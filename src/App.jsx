@@ -11,15 +11,16 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const CheckIfAuthenticated = async () => {
-    const requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+
 
     console.log('Request Headers:', requestHeaders);
 
     fetch('https://walrus-app-fc7zi.ondigitalocean.app/check', {
       method: 'GET',
       credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then(response => response.json())
       .then(data => {
