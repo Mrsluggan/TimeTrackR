@@ -33,7 +33,7 @@ export default function FetchData({ setIsLoggedIn, isLoggedIn }) {
 
     const handleIsActive = (task) => {
         
-        fetch(`https://walrus-app-fc7zi.ondigitalocean.app/task/${task.isActive ? 'stop' : 'start'}?id=${task.id}`, {
+        fetch(`https://walrus-app-fc7zi.ondigitalocean.app/task/start?id=${task.id}`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify({ id: task.id }),
