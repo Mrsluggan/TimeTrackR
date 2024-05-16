@@ -20,7 +20,6 @@ function App() {
     fetch('https://walrus-app-fc7zi.ondigitalocean.app/check', {
       method: 'GET',
       credentials: 'include',
-      headers: requestHeaders
     })
       .then(response => response.json())
       .then(data => {
