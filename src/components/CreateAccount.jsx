@@ -47,7 +47,7 @@ export default function CreateAccount({ setIsLoggedIn }) {
                                 id="username"
                                 name='username'
                                 required
-                                minLength={5}
+                                minLength={1}
                                 value={username}
                                 onChange={event => setUsername(event.target.value)}
                             />
@@ -57,7 +57,7 @@ export default function CreateAccount({ setIsLoggedIn }) {
                                 id="password"
                                 name='password'
                                 required
-                                minLength={8}
+                                minLength={1}
                                 value={password}
                                 onChange={event => setPassword(event.target.value)}
                             />
