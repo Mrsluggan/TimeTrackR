@@ -19,8 +19,21 @@ with terminal open root of repo, Type these commands
 This will install the necessary dependencies and start the development server. 
 You can access the client at http://localhost:5173/.
 
-### Troubleshooting
+### How to use
 
+To try is application, go to https://lobster-app-2ifzk.ondigitalocean.app/
+
+the users avalible
+Admin
+username: admin
+password: admin
+
+Users
+username: user
+password: user
+
+username: user2
+password: user2
 
 
 
