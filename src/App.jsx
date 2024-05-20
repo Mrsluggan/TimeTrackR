@@ -13,8 +13,6 @@ function App() {
   const CheckIfAuthenticated = async () => {
 
 
-    console.log('Request Headers:', requestHeaders);
-
     fetch('https://walrus-app-fc7zi.ondigitalocean.app/check', {
       method: 'GET',
       credentials: 'include',

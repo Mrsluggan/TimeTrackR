@@ -7,7 +7,6 @@ export default function CreateAccount({ setIsLoggedIn }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(username + "  " + password);
 
         fetch('https://walrus-app-fc7zi.ondigitalocean.app/users/add/newuser', {
             method: 'POST',
