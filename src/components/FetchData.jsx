@@ -31,19 +31,29 @@ export default function FetchData({ setIsLoggedIn, isLoggedIn }) {
         }
     }, [isLoggedIn]);
 
-    const handleIsActive = (task) => {
-        
-        fetch(`https://walrus-app-fc7zi.ondigitalocean.app/task/${task.isActive ? 'stop' : 'start'}?id=${task.id}`, {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify({ id: task.id }),
-
-        })
-            .then(() => {
-
-                getData();
-            });
-    };
+const handleIsActive = (task) => {
+    fetch(`https://walrus-app-fc7zi.ondigitalocean.app/task/${task.isActive ? 'stop' : 'start'}?id=${task.id}`, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify({ id: task.id }),
+        headers: {
+            'Content-Type': 'application/json' // Se till att ange rätt content-type header
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Om du förväntar dig JSON-svar
+    })
+    .then(data => {
+        console.log('Success:', data); // Debugging information
+        getData();
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+};
 
     const printData = () => {
         if (!Array.isArray(data)) {
