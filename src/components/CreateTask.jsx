@@ -33,7 +33,7 @@ export default function CreateTask({ setData }) {
     return (
         <form id='taskSubmit' onSubmit={handleSubmit}>
             <label htmlFor="taskName">Task name: </label>
-            <input type="text" id="taskName" name='taskName' required minLength={5} onChange={event => setTaskName(event.target.value)} />
+            <input type="text" id="taskName" name='taskName' required minLength={1} onChange={event => setTaskName(event.target.value)} />
             <button type='submit'> submit </button>
         </form>
     )
