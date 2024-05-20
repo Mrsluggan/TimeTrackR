@@ -67,7 +67,6 @@ const handleIsActive = (task) => {
             <li key={item.id} style={{ listStyle: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <h3>{item.taskName}</h3>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <p>{item.isActive.toString()} </p>
                     <p>{item.totalTime} Timmar </p>
                     {item.isActive === true ?
                         <button onClick={() => { handleIsActive(item) }}> Stop </button>

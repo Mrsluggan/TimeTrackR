@@ -49,7 +49,7 @@ export default function CreateAccount({ setIsLoggedIn }) {
                                 required
                                 minLength={1}
                                 value={username}
-                                onChange={event => setUsername(event.target.value)}
+                                onChange={event => setUsername(event.target.value.toLowerCase())}
                             />
                             <label htmlFor="password">Password </label>
                             <input
